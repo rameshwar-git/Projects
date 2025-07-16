@@ -7,6 +7,7 @@ interface TUser extends Document {
     password: string;
     contact: number;
     role: string;
+    timestamp?: Date;
 }
 const userSchema = new Schema<TUser>({
     uid: { type: String, required: true, unique: true },
@@ -14,9 +15,10 @@ const userSchema = new Schema<TUser>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     contact: { type: Number, required: true, length:10},
-    role: { type: String, default: 'user' }
-},{
-    timestamps: true
+    role: { type: String, default: 'user' },
+    timestamp: { type: Date, default: Date.now }
+}, {
+    timestamps: true,
 });
-const Travler = model<TUser>('Travler', userSchema);
+export const Travler = model<TUser>('Travler', userSchema);
 export default Travler;

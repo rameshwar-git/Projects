@@ -1,5 +1,6 @@
 import {Schema, model, Document} from 'mongoose';
-import { vehicleType } from 'enums/VehicleType';
+// Use correct relative path for your project structure
+import { vehicleType } from '../../enums/VehicleType';
 
 interface RUser extends Document {
     uid: string;
@@ -16,13 +17,13 @@ interface RUser extends Document {
     createdAt: Date;
 }
 
-const riderSchema = new Schema<RUser>({
+const userSchema = new Schema<RUser>({
     uid: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     contact: { type: Number, required: true },
-    role: { type: String, required: true, default: 'rider' },
+    role: { type: String, default: 'rider' },
     vehicleType: { type: String, enum: Object.values(vehicleType), required: true },
     vehicleNumber: { type: String, required: true, unique: true },
     vehicleModel: { type: String, required: false },
@@ -30,8 +31,8 @@ const riderSchema = new Schema<RUser>({
     isActive: { type: Boolean, default: true },
     createdAt: { type: Date, default: Date.now }
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
-const RiderModel = model<RUser>('Rider', riderSchema);
+const RiderModel = model<RUser>('Rider', userSchema);
 export default RiderModel;

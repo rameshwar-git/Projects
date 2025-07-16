@@ -1,26 +1,16 @@
-    import express from 'express';
-    import connectDB from './config/database';
-    import User from './models/User/Travler';
+import express from 'express';
+import { connectDB } from './config/db';
+import userRoutes from './routes/user.routes';
+import dotenv from 'dotenv';
 
-    const app = express();
-    app.use(express.json()); // Enable JSON body parsing
+dotenv.config();
 
-    connectDB(); // Connect to MongoDB
+const app = express();
+app.use(express.json());
 
-    app.get('/', (req, res) => res.send('API Running'));
+app.use('/', userRoutes);
 
-    // Example route to create a user
-    app.post('/users', async (req, res) => {
-        const { name, email } = req.body;
-        try {
-            const newUser = new User({ name, email });
-            await newUser.save();
-            res.status(201).json(newUser);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Server Error');
-        }
-    });
+connectDB();
 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

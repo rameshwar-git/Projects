@@ -1,4 +1,3 @@
-
 export enum StatusCode {
     ACTIVE = 'active',
     INACTIVE = 'inactive',

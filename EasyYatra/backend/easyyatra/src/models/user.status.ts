@@ -32,8 +32,8 @@ const userStatusSchema = new Schema<UserStatus>({
     },
     city: { type: String, required: false },
     fare: { type: Number, default: 20 },
-    vehicleType: { type: String, enum: Object.values(vehicleType), required: true },
-    rideStatus: { type: String, enum: Object.values(StatusCode), default: StatusCode.INACTIVE }
+    vehicleType: { type: String, enum: vehicleType, required: true },
+    rideStatus: { type: String, enum: StatusCode, default: StatusCode.INACTIVE }
 }, {
     timestamps: true
 });
