@@ -3,7 +3,7 @@ import {Schema, model, Document} from 'mongoose';
 import { vehicleType } from '../../enums/VehicleType';
 
 interface RUser extends Document {
-    uid: string;
+    udi: string;
     name: string;
     email: string;
     password: string;
@@ -18,7 +18,7 @@ interface RUser extends Document {
 }
 
 const userSchema = new Schema<RUser>({
-    uid: { type: String, required: true, unique: true },
+    udi: { type: String, required: false, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },

@@ -1,11 +1,11 @@
-import traveller from '../models/user/user.ride';
+import ride from '../models/user/user.ride';
 import rider from '../models/user/user.rider';
 import { Request, Response } from 'express';
 
 export const createRide = async (req: Request, res: Response) => {
   const { uid, name, email, password, contact } = req.body;
   try {
-    const userTraveller = await traveller.create({ 
+    const userRide = await ride.create({
       uid,
       name,
       email,
@@ -13,7 +13,7 @@ export const createRide = async (req: Request, res: Response) => {
       contact,
       role: 'ride'
     });
-    res.status(201).json(userTraveller);
+    res.status(201).json(ride);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -22,7 +22,7 @@ export const createRide = async (req: Request, res: Response) => {
 export const createRider = async (req: Request, res: Response) => {
   const { uid, name, email, password, contact, vehicleType, vehicleNumber, vehicleModel, vehicleColor } = req.body;
   try {
-    const userRider = await rider.create({ 
+    const userRider = await rider.create({
       uid,
       name,
       email,
