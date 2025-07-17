@@ -1,41 +1,36 @@
-import {Schema, model,Document, Double} from 'mongoose';
+import {Schema, model,Document} from 'mongoose';
 import {StatusCode} from '../enums/StatusCode';
-import { vehicleType } from 'enums/VehicleType';    
+import {vehicleType} from '../enums/VehicleType';    
 
 interface UserStatus extends Document {
     userId: string;
     rideId: string;
-    currentLocation: {
-        latitude: number;
-        longitude: number;
-    };
-    destination: {
-        latitude: number;
-        longitude: number;
-    };
-    city?: string;
-    fare?: number;
+    currentLocation: { latitude: number; longitude: number; };
+    destination: { latitude: number; longitude: number; };
+    city: string;
+    fare: number;
     vehicleType: vehicleType;
     rideStatus: StatusCode;
 };
 
 const userStatusSchema = new Schema<UserStatus>({
-    userId: { type: String, required: true },
-    rideId: { type: String, required: true },
+    userId: { type: String, required: true, unique: true },
+    rideId: { type: String, null: true, default: '' },
     currentLocation: {
-        latitude: { type: Number, required: true },
-        longitude: { type: Number, required: true }
+        latitude: { type: Number, required: true, null: true, default: 0 },
+        longitude: { type: Number, required: true, null: true, default: 0 }
     },
     destination: {
-        latitude: { type: Number, required: true },
-        longitude: { type: Number, required: true }
+        latitude: { type: Number, required: true, null: true, default: 0 },
+        longitude: { type: Number, required: true, null: true,default: 0 }
     },
-    city: { type: String, required: false },
-    fare: { type: Number, default: 20 },
-    vehicleType: { type: String, enum: vehicleType, required: true },
+    city: { type: String, null: true ,default:'' },
+    fare: { type: Number, null: true, default: 0 },
+    vehicleType: { type: String, enum: vehicleType, default: vehicleType.NONE },
     rideStatus: { type: String, enum: StatusCode, default: StatusCode.INACTIVE }
 }, {
     timestamps: true
 });
+
 const UserStatusModel = model<UserStatus>('UserStatus', userStatusSchema);
 export default UserStatusModel;
