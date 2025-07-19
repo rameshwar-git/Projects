@@ -7,6 +7,7 @@ interface TUser extends Document {
     contact: number;
     role: string;
 }
+
 const userSchema = new Schema<TUser>({
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
